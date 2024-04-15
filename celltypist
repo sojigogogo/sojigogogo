@@ -1,0 +1,230 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPsWJXe0UjfvtYjzqXcBP1y",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/sojigogogo/sojigogogo/blob/main/celltypist\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "yNXrgzCXwrku",
+        "outputId": "2fd04db8-6676-49d7-a5ad-c029fe8e141f"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Collecting celltypist\n",
+            "  Downloading celltypist-1.6.2-py3-none-any.whl (7.3 MB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m7.3/7.3 MB\u001b[0m \u001b[31m5.9 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: numpy>=1.19.0 in /usr/local/lib/python3.10/dist-packages (from celltypist) (1.25.2)\n",
+            "Requirement already satisfied: pandas>=1.0.5 in /usr/local/lib/python3.10/dist-packages (from celltypist) (2.0.3)\n",
+            "Requirement already satisfied: scikit-learn>=0.24.1 in /usr/local/lib/python3.10/dist-packages (from celltypist) (1.2.2)\n",
+            "Requirement already satisfied: openpyxl>=3.0.4 in /usr/local/lib/python3.10/dist-packages (from celltypist) (3.1.2)\n",
+            "Requirement already satisfied: click>=7.1.2 in /usr/local/lib/python3.10/dist-packages (from celltypist) (8.1.7)\n",
+            "Requirement already satisfied: requests>=2.23.0 in /usr/local/lib/python3.10/dist-packages (from celltypist) (2.31.0)\n",
+            "Collecting scanpy>=1.7.0 (from celltypist)\n",
+            "  Downloading scanpy-1.10.1-py3-none-any.whl (2.1 MB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m2.1/2.1 MB\u001b[0m \u001b[31m7.1 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hCollecting leidenalg>=0.9.0 (from celltypist)\n",
+            "  Downloading leidenalg-0.10.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.0 MB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m2.0/2.0 MB\u001b[0m \u001b[31m8.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hCollecting igraph<0.12,>=0.10.0 (from leidenalg>=0.9.0->celltypist)\n",
+            "  Downloading igraph-0.11.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m3.3/3.3 MB\u001b[0m \u001b[31m8.1 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: et-xmlfile in /usr/local/lib/python3.10/dist-packages (from openpyxl>=3.0.4->celltypist) (1.1.0)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.10/dist-packages (from pandas>=1.0.5->celltypist) (2.8.2)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.10/dist-packages (from pandas>=1.0.5->celltypist) (2023.4)\n",
+            "Requirement already satisfied: tzdata>=2022.1 in /usr/local/lib/python3.10/dist-packages (from pandas>=1.0.5->celltypist) (2024.1)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.10/dist-packages (from requests>=2.23.0->celltypist) (3.3.2)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.10/dist-packages (from requests>=2.23.0->celltypist) (3.6)\n",
+            "Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.10/dist-packages (from requests>=2.23.0->celltypist) (2.0.7)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.10/dist-packages (from requests>=2.23.0->celltypist) (2024.2.2)\n",
+            "Collecting anndata>=0.8 (from scanpy>=1.7.0->celltypist)\n",
+            "  Downloading anndata-0.10.7-py3-none-any.whl (122 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m122.4/122.4 kB\u001b[0m \u001b[31m8.7 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: h5py>=3.1 in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (3.9.0)\n",
+            "Requirement already satisfied: joblib in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (1.4.0)\n",
+            "Collecting legacy-api-wrap>=1.4 (from scanpy>=1.7.0->celltypist)\n",
+            "  Downloading legacy_api_wrap-1.4-py3-none-any.whl (15 kB)\n",
+            "Requirement already satisfied: matplotlib>=3.6 in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (3.7.1)\n",
+            "Requirement already satisfied: natsort in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (8.4.0)\n",
+            "Requirement already satisfied: networkx>=2.7 in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (3.3)\n",
+            "Requirement already satisfied: numba>=0.56 in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (0.58.1)\n",
+            "Requirement already satisfied: packaging>=21.3 in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (24.0)\n",
+            "Requirement already satisfied: patsy in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (0.5.6)\n",
+            "Collecting pynndescent>=0.5 (from scanpy>=1.7.0->celltypist)\n",
+            "  Downloading pynndescent-0.5.12-py3-none-any.whl (56 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m56.8/56.8 kB\u001b[0m \u001b[31m5.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: scipy>=1.8 in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (1.11.4)\n",
+            "Requirement already satisfied: seaborn>=0.13 in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (0.13.1)\n",
+            "Collecting session-info (from scanpy>=1.7.0->celltypist)\n",
+            "  Downloading session_info-1.0.0.tar.gz (24 kB)\n",
+            "  Preparing metadata (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "Requirement already satisfied: statsmodels>=0.13 in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (0.14.1)\n",
+            "Requirement already satisfied: tqdm in /usr/local/lib/python3.10/dist-packages (from scanpy>=1.7.0->celltypist) (4.66.2)\n",
+            "Collecting umap-learn!=0.5.0,>=0.5 (from scanpy>=1.7.0->celltypist)\n",
+            "  Downloading umap_learn-0.5.6-py3-none-any.whl (85 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m85.7/85.7 kB\u001b[0m \u001b[31m3.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: threadpoolctl>=2.0.0 in /usr/local/lib/python3.10/dist-packages (from scikit-learn>=0.24.1->celltypist) (3.4.0)\n",
+            "Collecting array-api-compat!=1.5,>1.4 (from anndata>=0.8->scanpy>=1.7.0->celltypist)\n",
+            "  Downloading array_api_compat-1.6-py3-none-any.whl (36 kB)\n",
+            "Requirement already satisfied: exceptiongroup in /usr/local/lib/python3.10/dist-packages (from anndata>=0.8->scanpy>=1.7.0->celltypist) (1.2.0)\n",
+            "Collecting texttable>=1.6.2 (from igraph<0.12,>=0.10.0->leidenalg>=0.9.0->celltypist)\n",
+            "  Downloading texttable-1.7.0-py2.py3-none-any.whl (10 kB)\n",
+            "Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib>=3.6->scanpy>=1.7.0->celltypist) (1.2.1)\n",
+            "Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.10/dist-packages (from matplotlib>=3.6->scanpy>=1.7.0->celltypist) (0.12.1)\n",
+            "Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.10/dist-packages (from matplotlib>=3.6->scanpy>=1.7.0->celltypist) (4.51.0)\n",
+            "Requirement already satisfied: kiwisolver>=1.0.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib>=3.6->scanpy>=1.7.0->celltypist) (1.4.5)\n",
+            "Requirement already satisfied: pillow>=6.2.0 in /usr/local/lib/python3.10/dist-packages (from matplotlib>=3.6->scanpy>=1.7.0->celltypist) (9.4.0)\n",
+            "Requirement already satisfied: pyparsing>=2.3.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib>=3.6->scanpy>=1.7.0->celltypist) (3.1.2)\n",
+            "Requirement already satisfied: llvmlite<0.42,>=0.41.0dev0 in /usr/local/lib/python3.10/dist-packages (from numba>=0.56->scanpy>=1.7.0->celltypist) (0.41.1)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil>=2.8.2->pandas>=1.0.5->celltypist) (1.16.0)\n",
+            "Collecting stdlib_list (from session-info->scanpy>=1.7.0->celltypist)\n",
+            "  Downloading stdlib_list-0.10.0-py3-none-any.whl (79 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m79.8/79.8 kB\u001b[0m \u001b[31m6.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hBuilding wheels for collected packages: session-info\n",
+            "  Building wheel for session-info (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "  Created wheel for session-info: filename=session_info-1.0.0-py3-none-any.whl size=8026 sha256=a76c6662234ebf2a0de11b3c05158ab2ea832e76f067d034cbb9c52f44779231\n",
+            "  Stored in directory: /root/.cache/pip/wheels/6a/aa/b9/eb5d4031476ec10802795b97ccf937b9bd998d68a9b268765a\n",
+            "Successfully built session-info\n",
+            "Installing collected packages: texttable, array-api-compat, stdlib_list, legacy-api-wrap, igraph, session-info, leidenalg, pynndescent, anndata, umap-learn, scanpy, celltypist\n",
+            "Successfully installed anndata-0.10.7 array-api-compat-1.6 celltypist-1.6.2 igraph-0.11.4 legacy-api-wrap-1.4 leidenalg-0.10.2 pynndescent-0.5.12 scanpy-1.10.1 session-info-1.0.0 stdlib_list-0.10.0 texttable-1.7.0 umap-learn-0.5.6\n"
+          ]
+        }
+      ],
+      "source": [
+        "!pip install celltypist"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import scanpy as sc"
+      ],
+      "metadata": {
+        "id": "n4mP8--Qw1H6"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import celltypist\n",
+        "from celltypist import models"
+      ],
+      "metadata": {
+        "id": "JTCIJJIuw8Up"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import sys\n",
+        "print(sys.path)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "OPtdj_Ilw-NG",
+        "outputId": "aea3b03a-56cd-4a48-a0eb-84aeba0b887d"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['/content', '/env/python', '/usr/lib/python310.zip', '/usr/lib/python3.10', '/usr/lib/python3.10/lib-dynload', '', '/usr/local/lib/python3.10/dist-packages', '/usr/lib/python3/dist-packages', '/usr/local/lib/python3.10/dist-packages/IPython/extensions', '/root/.ipython']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install pyreadr"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "4WkA3TtYxFqP",
+        "outputId": "7bc0abf3-b966-4b83-c517-6e4fc092b2b1"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Collecting pyreadr\n",
+            "  Downloading pyreadr-0.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (440 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m440.9/440.9 kB\u001b[0m \u001b[31m3.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: pandas>=1.2.0 in /usr/local/lib/python3.10/dist-packages (from pyreadr) (2.0.3)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.10/dist-packages (from pandas>=1.2.0->pyreadr) (2.8.2)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.10/dist-packages (from pandas>=1.2.0->pyreadr) (2023.4)\n",
+            "Requirement already satisfied: tzdata>=2022.1 in /usr/local/lib/python3.10/dist-packages (from pandas>=1.2.0->pyreadr) (2024.1)\n",
+            "Requirement already satisfied: numpy>=1.21.0 in /usr/local/lib/python3.10/dist-packages (from pandas>=1.2.0->pyreadr) (1.25.2)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil>=2.8.2->pandas>=1.2.0->pyreadr) (1.16.0)\n",
+            "Installing collected packages: pyreadr\n",
+            "Successfully installed pyreadr-0.5.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pyreadr\n"
+      ],
+      "metadata": {
+        "id": "111SxntBxb0X"
+      },
+      "execution_count": 9,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "expmatrix = pyreadr.read_r()"
+      ],
+      "metadata": {
+        "id": "KrenAOv-xe5-"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
